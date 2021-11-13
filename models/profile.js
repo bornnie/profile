@@ -24,20 +24,15 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function(done) {
 			var user = this;
-			if(!user.isModified('passwordd')){
+			if(!user.isModified('password')){
 							return done();
 			}
-});
-
-const saltFactor = 10;
-const noop = function () {};
-
-bcrypt.genSalt(saltFactor, function(err,salt){
+			bcrypt.genSalt(saltFactor, function(err,salt){
 				if(err){
 								return done(err);
 				}
 				
-				bcrypt.hash(user.password,salt,noop, function(err,hashedPassword){
+				bcrypt.hash(this.password,salt,noop, function(err,hashedPassword){
 							if(err){
 											return done(err);
 							}	
@@ -47,8 +42,14 @@ bcrypt.genSalt(saltFactor, function(err,salt){
 				});
 });
 
+});
+
+const saltFactor = 10;
+const noop = function () {};
+
+
 userSchema.methods.checkPassword = function(guess, done){
-		bcrypt.compare(this.password, guess, function (err, isMatch) {
+		bcrypt.compare(guess, this.password, function (err, isMatch) {
 			done(err, isMatch);			
 		});		
 };
@@ -57,4 +58,4 @@ userSchema.methods.name = function () {
 		return this.displayName	 ||  this.firstname;	
 };
 
-const User = module.exports.mongoose.model('User', userSchema);
+const User = module.exports = mongoose.model('User', userSchema);

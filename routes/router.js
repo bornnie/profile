@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const User = require("../models/profiler");
+const User = require("../models/profile");
 const flash = require('connect-flash');
 
 router.use(function (req,res,next) {
