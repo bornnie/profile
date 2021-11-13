@@ -10,7 +10,14 @@ router.use(function (req,res,next) {
 });
 
 router.get('/', function(){
-				res.send('It is working fine');
+			User.find({}).then(function (users) {
+					if(users)	{
+									res.render("home",{
+													title:"Home Page",
+													users:users
+									});
+					}	
+			}).catch(err=>console.log(err.msg));
 });
 
 module.exports = router;
