@@ -1,5 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
 require('dotenv').config();
 const app = express();
 
@@ -14,6 +15,14 @@ mongoose.connection.once('open', function(){
 }).on("error", function (err) {
 			console.log('Connection Error', err);
 });
+
+//FLASH CONFIG
+app.use(flash());
+
+//routes
+const userRoutes = require('./routes/router');
+app.use('/users', userRoutes);
+
 const port = process.env.PORT || 3000;
 app.listen(port,function () {
 			console.log(`Server listening to requests on localhost:${port}`);
