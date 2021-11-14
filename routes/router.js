@@ -9,7 +9,7 @@ router.use(function (req,res,next) {
 				next();
 });
 
-router.get('/', function(){
+router.get('/', function(req,res){
 			User.find({}).then(function (users) {
 					if(users)	{
 									res.render("home",{
