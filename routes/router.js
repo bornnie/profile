@@ -20,4 +20,10 @@ router.get('/', function(req,res){
 			}).catch(err=>console.log(err));
 });
 
+router.get('/register', function(req,res){
+				res.render('signup',{
+								title:'Registration form'
+				});
+});
+
 module.exports = router;
