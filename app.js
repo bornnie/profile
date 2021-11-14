@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const ejsLayout = require('express-ejs-layouts');
 require('dotenv').config();
 const app = express();
 
@@ -16,12 +19,26 @@ mongoose.connection.once('open', function(){
 			console.log('Connection Error', err);
 });
 
+//req and bosy parsers
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(session({
+				secret:process.env.SECRET,
+				resave:false,
+				saveUninitialized: false
+}));
 //FLASH CONFIG
 app.use(flash());
 
 //routes
 const userRoutes = require('./routes/router');
 app.use('/users', userRoutes);
+
+//public and views
+app.use(express.static('public'));
+//app.use(ejsLayout);
+app.set('view engine','ejs');
+app.set('views','views');
 
 const port = process.env.PORT || 3000;
 app.listen(port,function () {

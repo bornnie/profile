@@ -3,7 +3,7 @@ const User = require("../models/profile");
 const flash = require('connect-flash');
 
 router.use(function (req,res,next) {
-				res.locals.currentUser = req.user;
+				//res.locals.currentUser = req.user;
 				res.locals.errors = req.flash('error');
 				res.locals.infos = req.flash('info');
 				next();
@@ -17,7 +17,7 @@ router.get('/', function(){
 													users:users
 									});
 					}	
-			}).catch(err=>console.log(err.msg));
+			}).catch(err=>console.log(err));
 });
 
 module.exports = router;
