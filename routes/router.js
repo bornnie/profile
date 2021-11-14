@@ -26,4 +26,30 @@ router.get('/register', function(req,res){
 				});
 });
 
+router.post('/register', function(req,res){
+const email  = req.body.email;
+				User.findOne({email:email}).then(function(user){
+				if(user){
+								req.flash('error','User already exists!');
+								res.redirect('/users/login');
+				}	
+				var firstname = req.body.firstname;
+				var lastname = req.body.lastname;
+				var email = req.body.email;
+				var password  = req.body.password;
+				
+				let user = new User({
+								firstname:firstname,
+								lastname:lastname,
+								email:email,
+								password:password
+				});
+				
+				user.save().then(function(user){
+								req.flash('info','You have successfully registered');
+								res.redirect('/users');
+				}).catch(err=>console.log(err));
+				}).catch(err=>console.log(err)l);
+});
+
 module.exports = router;
