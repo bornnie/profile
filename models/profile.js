@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
+const saltFactor =10;
 
 const userSchema = mongoose.Schema({
 				createdAt:{
@@ -16,11 +17,17 @@ const userSchema = mongoose.Schema({
 				},
 				email:{
 								type:String,
-								required:[true,'email field is required']
+								required:[true,'email field is required'],
+								password:{
+												type: String,
+												required:[true,'password field is required']
+								}
 				},
 				bio:String,
 				displayName:String
 });
+
+const noop = function(){};
 
 userSchema.pre('save', function(done) {
 			var user = this;
@@ -32,7 +39,7 @@ userSchema.pre('save', function(done) {
 								return done(err);
 				}
 				
-				bcrypt.hash(this.password,salt,noop, function(err,hashedPassword){
+				bcrypt.hash(user.password,salt,noop, function(err,hashedPassword){
 							if(err){
 											return done(err);
 							}	
@@ -43,9 +50,6 @@ userSchema.pre('save', function(done) {
 });
 
 });
-
-const saltFactor = 10;
-const noop = function () {};
 
 
 userSchema.methods.checkPassword = function(guess, done){

@@ -1,3 +1,10 @@
 <%- include("./partials/header") %>
   <h1 class="text-center">Hello Profilers</h1>
+  <div class="conatiner mb-4">
+  <% users.forEach(function(user){ %>
+  			<ul class="list-group">
+  							<li class="list-group-item"><%= user.firstname %> </li>
+  			</ul>
+ <% }) %>
+ </div>
 <%- include("./partials/footer") %>

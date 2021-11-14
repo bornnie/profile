@@ -12,6 +12,7 @@ router.use(function (req,res,next) {
 router.get('/', function(req,res){
 			User.find({}).then(function (users) {
 					if(users)	{
+					console.log(users);
 									res.render("home",{
 													title:"Home Page",
 													users:users
@@ -27,18 +28,18 @@ router.get('/register', function(req,res){
 });
 
 router.post('/register', function(req,res){
-const email  = req.body.email;
-				User.findOne({email:email}).then(function(user){
+				User.findOne({email:req.body.email}).then(function(user){
 				if(user){
 								req.flash('error','User already exists!');
+								console.log(user);
 								res.redirect('/users/login');
-				}	
+				}	else{
 				var firstname = req.body.firstname;
 				var lastname = req.body.lastname;
 				var email = req.body.email;
 				var password  = req.body.password;
 				
-				let user = new User({
+			var user = new User({
 								firstname:firstname,
 								lastname:lastname,
 								email:email,
@@ -47,9 +48,17 @@ const email  = req.body.email;
 				
 				user.save().then(function(user){
 								req.flash('info','You have successfully registered');
+								console.log(user);
 								res.redirect('/users');
 				}).catch(err=>console.log(err));
-				}).catch(err=>console.log(err)l);
+		}
+				}).catch(err=>console.log(err));
+});
+
+router.get('/login', function(req,res){
+				res.render('login',{
+								title:'Login form'
+				});
 });
 
 module.exports = router;
