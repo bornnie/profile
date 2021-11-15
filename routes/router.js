@@ -59,4 +59,9 @@ router.get('/login', function(req,res){
 				});
 });
 
+router.use(function(req,res){
+				res.status(404);
+				res.send('Error 404: Page Not Found');
+});
+
 module.exports = router;
