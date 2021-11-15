@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const ejsLayout = require('express-ejs-layouts');
 require('dotenv').config();
 const app = express();
 
@@ -19,7 +18,7 @@ mongoose.connection.once('open', function(){
 			console.log('Connection Error', err);
 });
 
-//req and bosy parsers
+//req and body parsers
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(session({
@@ -36,9 +35,7 @@ app.use('/users', userRoutes);
 
 //public and views
 app.use(express.static('public'));
-//app.use(ejsLayout);
 app.set('view engine','ejs');
-app.set('views','views');
 
 const port = process.env.PORT || 3000;
 app.listen(port,function () {
