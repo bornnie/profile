@@ -12,7 +12,6 @@ router.use(function (req,res,next) {
 router.get('/', function(req,res){
 			User.find({}).then(function (users) {
 					if(users)	{
-					console.log(users);
 									res.render("home",{
 													title:"Home Page",
 													users:users
