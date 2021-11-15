@@ -27,32 +27,30 @@ router.get('/register', function(req,res){
 				});
 });
 
-router.post('/register', function(req,res){
+router.post('/register',function(req,res){
 				User.findOne({email:req.body.email}).then(function(user){
 				if(user){
-								req.flash('error','User already exists!');
-								console.log(user);
+								req.flash('error','User is already registered');
 								res.redirect('/users/login');
-				}	else{
-				var firstname = req.body.firstname;
-				var lastname = req.body.lastname;
-				var email = req.body.email;
-				var password  = req.body.password;
-				
-			var user = new User({
-								firstname:firstname,
-								lastname:lastname,
-								email:email,
-								password:password
+				}else{
+								const profile = new User({
+												firstname : req.body.firstname,
+												lastname : req.body.lastname,
+												email : req.body.email,
+												password : req.body.password
+								});
+						profile.save(function(err,user){
+									if(err){
+													console.log(err);
+									}	else {
+													req.flash('info','You have been successfully registered');
+													res.redirect('/users');
+									}
+						});
+				}			
+				}).catch(function(err){
+								console.log(err);
 				});
-				
-				user.save().then(function(user){
-								req.flash('info','You have successfully registered');
-								console.log(user);
-								res.redirect('/users');
-				}).catch(err=>console.log(err));
-		}
-				}).catch(err=>console.log(err));
 });
 
 router.get('/login', function(req,res){

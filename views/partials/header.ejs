@@ -28,17 +28,19 @@
 												</ul>
 								</div>
 				</nav>
+			<div class="container">
 				<div class="container text-center">
 								<% errors.forEach(function(error){ %>
-												<div class="alert alert-danger close">
+												<div class="alert alert-danger">
 																<%= error %>
 												</div>
 							<%	}) %>
 				</div>
 <div class="container text-center">
 								<% infos.forEach(function(info){ %>
-												<div class="alert alert-info close">
+												<div class="alert alert-info">
 																<%= info %>
 												</div>
 							<%	}) %>
 				</div>
+			</div>

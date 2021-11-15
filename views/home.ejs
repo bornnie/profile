@@ -3,7 +3,7 @@
   <div class="conatiner mb-4">
   <% users.forEach(function(user){ %>
   			<ul class="list-group">
-  							<li class="list-group-item"><%= user.firstname %> </li>
+  							<li class="list-group-item"><a class="nav-link" href="/users/<%= user._id %>"><%= user.firstname %> </a></li>
   			</ul>
  <% }) %>
  </div>

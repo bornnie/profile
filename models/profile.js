@@ -17,14 +17,14 @@ const userSchema = mongoose.Schema({
 				},
 				email:{
 								type:String,
-								required:[true,'email field is required'],
-								password:{
+								required:[true,'email field is required']
+						},
+					password:{
 												type: String,
 												required:[true,'password field is required']
-								}
 				},
-				bio:String,
-				displayName:String
+				displayName: String,
+				bio:String
 });
 
 const noop = function(){};
@@ -47,7 +47,7 @@ userSchema.pre('save', function(done) {
 							user.password = hashedPassword;
 							done();
 				});
-});
+  });
 
 });
 
