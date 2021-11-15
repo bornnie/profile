@@ -52,6 +52,16 @@ router.post('/register',function(req,res){
 				});
 });
 
+router.get('/delete-user/:id', function(req,res){
+				User.findByIdAndRemove(req.params.id, function(err){
+								if(err) {
+										console.log(err)		
+								}else {
+												req.flash('info','User has been successfully deleted!');
+												res.redirect('/users');
+								}
+				})
+})
 router.get('/login', function(req,res){
 				res.render('login',{
 								title:'Login form'

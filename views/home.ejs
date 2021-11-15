@@ -4,6 +4,7 @@
   <% users.forEach(function(user){ %>
   			<ul class="list-group">
   							<li class="list-group-item"><a class="nav-link" href="/users/<%= user._id %>"><%= user.firstname %> </a></li>
+  							<a href="/users/delete-user/<%= user._id %>" class="btn btn-md btn-danger">delete</a>
   			</ul>
  <% }) %>
  </div>
